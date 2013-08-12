@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -f "${OPENSHIFT_DATA_DIR}sidekiq.pid" ]; then
+  echo "Stopping Sidekiq..."
+  SIDEKIQ_PID=$(cat "${OPENSHIFT_DATA_DIR}sidekiq.pid")
+  # Check if Sidekiq is running. If not, just remove the PID file.
+  ps -p $SIDEKIQ_PID &> /dev/null
+  if [ "$?" == 0 ]; then
+    kill $SIDEKIQ_PID
+  else
+    echo "WARNING: Sidekiq is not running, but the PID file exists."
+  fi
+  rm "${OPENSHIFT_DATA_DIR}sidekiq.pid" &> /dev/null
+fi
+
