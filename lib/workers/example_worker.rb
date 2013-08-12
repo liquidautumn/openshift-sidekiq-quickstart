@@ -1,7 +1,7 @@
 class ExampleWorker
   include Sidekiq::Worker
 
-  # You can call this method by: ExampleWorker.async_perform
+  # You can call this method by: ExampleWorker.perform_async
   #
   def perform
     puts "Performing the example worker task..."
